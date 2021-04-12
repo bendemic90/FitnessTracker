@@ -29,8 +29,13 @@ router.get('/stats', async (req, res) => {
 })
 
 router.get('/api/workouts', (req, res) => {
-    db.Workout.find().sort({ _id: -1})
+    db.Workout
+        .find()
+        .sort({ _id: -1 })
+        .limit(1)
+        .populate()
         .then(latest => {
+            console.log(latest)
             res.json(latest)
         })
         .catch(err => {
