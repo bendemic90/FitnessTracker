@@ -8,38 +8,33 @@ const workoutSchema = new Schema ({
         default: Date.now
     },
     exercises: [{
-        type: Schema.Types.ObjectId,
-        ref: "Exercise"
+        type: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        duration: {
+            type: Number,
+            required: true
+        },
+        weight: {
+            type: Number,
+        },
+        reps: {
+            type: Number,
+        },
+        sets: {
+            type: Number,
+        },
+        distance: {
+            type: Number,
+        }
     }]
 })
 
-const exerciseSchema = new Schema ({
-    type: {
-        required: true,
-        type: String
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-    duration: {
-        type: Number,
-    },
-    weight: {
-        type: Number,
-    },
-    reps: {
-        type: Number,
-    },
-    sets: {
-        type: Number,
-    },
-    distance: {
-        type: Number,
-    }
-})
-
 const Workout = mongoose.model("Workout", workoutSchema);
-const Exercise = mongoose.model("Exercise", exerciseSchema);
 
-module.exports = { Workout, Exercise };
+module.exports = { Workout };

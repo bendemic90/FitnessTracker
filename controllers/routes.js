@@ -30,10 +30,9 @@ router.get('/stats', async (req, res) => {
 
 router.get('/api/workouts', (req, res) => {
     db.Workout
-        .find()
-        .sort({ _id: -1 })
+        .find({})
+        .sort({ day: -1 })
         .limit(1)
-        .populate()
         .then(latest => {
             console.log(latest)
             res.json(latest)
