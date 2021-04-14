@@ -27,11 +27,19 @@ router.get('/stats', async (req, res) => {
 })
 
 router.get('/api/workouts', (req, res) => {
-    Workout
-        .find({})
-        .sort({ day: -1 })
-        .limit(1)
-        .then(latest => {
+    Workout.aggregate([
+        {
+            $limit: 1
+        },
+        {
+            $sort: { day: -1 }
+        },
+        {
+            $addFields: { 
+                totalDuration: { $sum: "$exercises.duration" }
+            },
+        }
+    ]).then(latest => {
             console.log(latest)
             res.json(latest)
         })
